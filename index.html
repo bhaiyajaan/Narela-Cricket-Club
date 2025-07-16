@@ -3,145 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cricket Player Rankings</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #ffffff;
-      color: #003366;
-    }
-
-    header {
-      text-align: center;
-      padding: 20px;
-      background-color: #003366;
-      color: white;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-      letter-spacing: 1px;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      padding: 30px 15px;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .player-card {
-      display: flex;
-      align-items: center;
-      background-color: #f1f7ff;
-      border-radius: 12px;
-      padding: 15px 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease;
-    }
-
-    .player-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .player-photo {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid #003366;
-      margin-right: 20px;
-    }
-
-    .player-details {
-      flex-grow: 1;
-    }
-
-    .player-name {
-      font-size: 1.3rem;
-      font-weight: bold;
-      margin: 2px 0;
-    }
-
-    .player-country {
-      font-size: 0.95rem;
-      color: #336699;
-    }
-
-    .player-score {
-      font-size: 1rem;
-      margin-top: 5px;
-      color: #002244;
-    }
-
-    .player-rank {
-      font-size: 1rem;
-      font-weight: bold;
-      background-color: #003366;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 15px;
-      background-color: #003366;
-      color: #ffffff;
-      font-size: 0.9rem;
-    }
-  </style>
+  <title>NCC - Narela Cricket Club</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-
   <header>
-    <h1>NCC Men's Batting Rankings (official)</h1>
+    <div class="logo">NCC</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="players.html">Players</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="join.html">Join NCC</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <div class="container" id="player-container">
-    <!-- Player cards will be injected by JavaScript -->
-  </div>
+  <section class="hero">
+    <h1>Welcome to Narela Cricket Club</h1>
+    <p>Home of Rising Cricket Talent</p>
+  </section>
+
+  <section class="matches">
+    <h2>Upcoming Matches</h2>
+    <div class="match-card">
+      <h3>Ansh vs Himanshu</h3>
+      <p><strong>Date:</strong> 20 July, 2025</p>
+      <p><strong>Venue:</strong> Narela Complex</p>
+    </div>
+    <div class="match-card">
+      <h3>Ansh vs Himanshu</h3>
+      <p><strong>Date:</strong> 28 July, 2025</p>
+      <p><strong>Venue:</strong> Sports Complex</p>
+    </div>
+  </section>
+
+  <section class="news">
+    <h2>Latest News</h2>
+    <div class="news-item">
+      <h4>NCC signs young talent from Delhi</h4>
+      <p>July 12, 2025 - NCC welcomes new players in their squad for the 2025 tournament season.</p>
+    </div>
+  </section>
 
   <footer>
-    © 2025 NCC - Narela Cricket Club | All Rankings are Auto-calculated
+    <p>&copy; 2025 Narela Cricket Club. All rights reserved.</p>
   </footer>
-
-  <script>
-    const players = [
-      { name: "Gaurav KK", country: "Royal Champions", score: 124, photo: "https://i.imgur.com/Q9nZVq9.jpg" },
-      { name: "Hardik", country: "Royal Champions", score: 83, photo: "https://i.imgur.com/vg4ZnIv.jpg" },
-      { name: "Himanshu", country: "Royal Champions", score: 80, photo: "https://i.imgur.com/08B4c6N.jpg" },
-      { name: "Jaideep", country: "Knight Warrior", score: 76, photo: "https://i.imgur.com/pZ2n92i.jpg" },
-      { name: "Aditya Tyagi", country: "Royal Champions", score: 75, photo: "https://i.imgur.com/J2H2b4y.jpg" },
-      { name: "Abhishek", country: "Royal Champions", score: 63, photo: "https://i.imgur.com/VrknqON.jpg" },
-      { name: "Ansh", country: "Knight Warrior", score: 63, photo: "https://i.imgur.com/5sGQWUS.jpg" },
-      { name: "Aditya", country: "Royal Champions", score: 60, photo: "https://i.imgur.com/mZsXGgO.jpg" },
-      { name: "Himanshu M", country: "Royal Champions", score: 27, photo: "https://i.imgur.com/fv9OY0e.jpg" },
-    ];
-
-    players.sort((a, b) => b.score - a.score);
-
-    const container = document.getElementById("player-container");
-
-    players.forEach((player, index) => {
-      const card = document.createElement("div");
-      card.className = "player-card";
-      card.innerHTML = `
-        <img src="${player.photo}" class="player-photo" alt="${player.name}" />
-        <div class="player-details">
-          <div class="player-name">${player.name}</div>
-          <div class="player-country">${player.country}</div>
-          <div class="player-score">Score: ${player.score}</div>
-        </div>
-        <div class="player-rank">#${index + 1}</div>
-      `;
-      container.appendChild(card);
-    });
-  </script>
-
 </body>
 </html>
