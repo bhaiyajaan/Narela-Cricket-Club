@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mobile Racing Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      height: 100vh;
+    }
+
+    #game {
+      width: 90vw;
+      max-width: 400px;
+      height: 80vh;
+      background: url('ground.png') repeat-y;
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+      border: 4px solid #fff;
+    }
+
+    .car {
+      width: 15vw;
+      height: 20vh;
+      max-width: 60px;
+      max-height: 100px;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: url('stump.png') no-repeat center;
+      background-size: cover;
+    }
+
+    .obstacle {
+      width: 15vw;
+      height: 20vh;
+      max-width: 60px;
+      max-height: 50px;
+      background: url('ballt.png') no-repeat center;
+      background-size: cover;
+      position: absolute;
+      top: -100px;
+    }
+
+    #score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #fff;
+      font-family: 'Arial Black', sans-serif;
+      font-size: 4vw;
+      z-index: 10;
+    }
+
+    #game-over {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      font-size: 1.5em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      display: none;
+    }
+
+    #play-again {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #28a745;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #controls {
+      margin-top: 10px;
+      display: flex;
+      gap: 30px;
+    }
+
+    .btn {
+      background: #007bff;
+      color: white;
+      font-size: 18px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .btn:active {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div id="game">
+  <div id="score">Score: 0</div>
+  <div class="car" id="car"></div>
+  <div id="game-over">
+    Game Over<br />
+    <button id="play-again">Play Again</button>
+  </div>
+
+  <!-- Sounds -->
+  <audio id="engine-sound" loop src="bgsound.mp3"></audio>
+  <audio id="crash-sound" src="out.mp3"></audio>
+</div>
+
+<!-- Mobile Controls -->
+<div id="controls">
+  <button class="btn" id="left-btn">⬅ Left</button>
+  <button class="btn" id="right-btn">➡ Right</button>
+</div>
+
+<script>
+  const car = document.getElementById('car');
+  const game = document.getElementById('game');
+  const gameOverScreen = document.getElementById('game-over');
+  const playAgainBtn = document.getElementById('play-again');
+  const scoreDisplay = document.getElementById('score');
+  const engineSound = document.getElementById('engine-sound');
+  const crashSound = document.getElementById('crash-sound');
+  const leftBtn = document.getElementById('left-btn');
+  const rightBtn = document.getElementById('right-btn');
+
+  let carPosition = 50; // percentage
+  let gameRunning = true;
+  let score = 0;
+  let scoreInterval;
+
+  function updateCarPosition() {
+    car.style.left = carPosition + '%';
+  }
+
+  function startGame() {
+    gameRunning = true;
+    score = 0;
+    scoreDisplay.innerText = 'Score: 0';
+    carPosition = 50;
+    updateCarPosition();
+    gameOverScreen.style.display = 'none';
+    engineSound.play();
+
+    scoreInterval = setInterval(() => {
+      if (gameRunning) {
+        score++;
+        scoreDisplay.innerText = 'Score: ' + score;
+      }
+    }, 500);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (!gameRunning) return;
+    if (e.key === "ArrowLeft" && carPosition > 5) {
+      carPosition -= 5;
+      updateCarPosition();
+    } else if (e.key === "ArrowRight" && carPosition < 85) {
+      carPosition += 5;
+      updateCarPosition();
+    }
+  });
+
+  // Mobile button controls
+  leftBtn.addEventListener('click', () => {
+    if (gameRunning && carPosition > 5) {
+      carPosition -= 5;
+      updateCarPosition();
+    }
+  });
+
+  rightBtn.addEventListener('click', () => {
+    if (gameRunning && carPosition < 85) {
+      carPosition += 5;
+      updateCarPosition();
+    }
+  });
+
+  function createObstacle() {
+    const obs = document.createElement('div');
+    obs.classList.add('obstacle');
+    obs.style.left = Math.floor(Math.random() * 6) * 15 + '%';
+    game.appendChild(obs);
+
+    let obsTop = -100;
+    const move = setInterval(() => {
+      if (!gameRunning) {
+        clearInterval(move);
+        obs.remove();
+        return;
+      }
+
+      obsTop += 5;
+      obs.style.top = obsTop + 'px';
+
+      if (obsTop > game.clientHeight) {
+        obs.remove();
+        clearInterval(move);
+      }
+
+      const carRect = car.getBoundingClientRect();
+      const obsRect = obs.getBoundingClientRect();
+
+      if (
+        obsRect.top < carRect.bottom &&
+        obsRect.bottom > carRect.top &&
+        obsRect.left < carRect.right &&
+        obsRect.right > carRect.left
+      ) {
+        gameRunning = false;
+        clearInterval(move);
+        clearInterval(scoreInterval);
+        engineSound.pause();
+        crashSound.play();
+        gameOverScreen.style.display = "flex";
+      }
+    }, 30);
+  }
+
+  // Game Loop
+  let spawnInterval = setInterval(() => {
+    if (gameRunning) {
+      createObstacle();
+    }
+  }, 1000);
+
+  // Play Again
+  playAgainBtn.addEventListener('click', () => {
+    document.querySelectorAll('.obstacle').forEach(el => el.remove());
+    startGame();
+  });
+
+  // Start the game
+  startGame();
+</script>
+
+</body>
+</html>
