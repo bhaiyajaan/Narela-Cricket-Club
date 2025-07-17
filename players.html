@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Players | NCC Cricket</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --secondary: #3b82f6;
+      --light: #f8fafc;
+      --dark: #111827;
+      --accent: #facc15;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    main {
+      padding: 2rem 1rem;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .player-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .player-card {
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .player-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .player-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .player-card p {
+      margin: 0.2rem 0;
+    }
+
+    footer {
+      background: var(--primary);
+      color: var(--white);
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      header {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0;
+      }
+
+      .player-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .player-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NCC - Narela Cricket Club</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="players.html">Player Info</a>
+      <a href="ranking.html">Rankings</a>
+      <a href="register.html">Register</a>
+      <a href="bidding.html">Captain Bidding</a>
+      <a href="gallery.html">Gallery</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Our Star Players</h2>
+    <div class="player-grid">
+      <div class="player-card">
+        <img src="https://via.placeholder.com/120x120?text=Player+1" alt="Player 1">
+        <h3>Gaurav</h3>
+        <p><strong>Role:</strong> Batsman</p>
+        <p><strong>Matches:</strong> 5</p>
+        <p><strong>Runs:</strong> 63</p>
+      </div>
+
+      <div class="player-card">
+        <img src="https://via.placeholder.com/120x120?text=Player+2" alt="Player 2">
+        <h3>Suraj</h3>
+        <p><strong>Role:</strong> All-Rounder</p>
+        <p><strong>Matches:</strong> 5</p>
+        <p><strong>Runs:</strong> 53</p>
+      </div>
+
+      <div class="player-card">
+        <img src="https://via.placeholder.com/120x120?text=Player+3" alt="Player 3">
+        <h3>Yash</h3>
+        <p><strong>Role:</strong> Bowler</p>
+        <p><strong>Matches:</strong> 3</p>
+        <p><strong>Wickets:</strong> 7</p>
+      </div>
+
+      <div class="player-card">
+        <img src="https://via.placeholder.com/120x120?text=Player+4" alt="Player 4">
+        <h3>Himanshu</h3>
+        <p><strong>Role:</strong> Wicket-Keeper</p>
+        <p><strong>Matches:</strong> 5</p>
+        <p><strong>Runs:</strong> 41</p>
+      </div>
+
+      <div class="player-card">
+        <img src="https://via.placeholder.com/120x120?text=Player+5" alt="Player 5">
+        <h3>Karan</h3>
+        <p><strong>Role:</strong> Batsman</p>
+        <p><strong>Matches:</strong> 5</p>
+        <p><strong>Runs:</strong> 38</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 NCC Cricket. All rights reserved.
+  </footer>
+</body>
+</html>
