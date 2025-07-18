@@ -124,6 +124,17 @@
   </style>
 </head>
 <body>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(reg) {
+        console.log('✅ Service Worker registered: ', reg);
+      })
+      .catch(function(err) {
+        console.log('❌ Service Worker registration failed: ', err);
+      });
+  }
+</script>
   <header>
     <h1>NCC - Narela Cricket Club</h1>
     <nav>
